@@ -1,0 +1,112 @@
+:root {
+    --primary-700: #004C97;
+    --neutral-100: #f7fafc;
+    --space-xl: 2rem;
+    --space-lg: 1.5rem;
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: var(--neutral-100);
+    color: var(--neutral-800);
+}
+
+.market-result {
+    text-align: center;
+    padding: var(--space-xl);
+    background-color: white;
+}
+
+.market-result h1 {
+    color: var(--primary-700);
+    font-size: 1.75rem;
+    margin-bottom: var(--space-lg);
+}
+
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: var(--space-xl);
+    flex-direction: column;
+    background: var(--neutral-100);
+}
+
+.dashboard {
+    max-width: 1200px;
+    width: 100%;
+    background-color: white;
+    padding: var(--space-xl);
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 600px;
+    margin-bottom: var(--space-xl);
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--space-sm);
+    cursor: pointer;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 0 var(--space-sm);
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    margin-right: var(--space-xs);
+}
+
+.price-cards {
+    display: flex;
+    gap: var(--space-xl);
+    justify-content: center;
+    margin: var(--space-xl) 0;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-xl);
+}
+
+.price-card {
+    background: white;
+    border-radius: 12px;
+    padding: var(--space-lg);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+    min-width: 200px;
+    width: 300px;
+}
+
+.price-card-header {
+    font-size: 1.2rem;
+    color: var(--primary-700);
+    margin-bottom: var(--space-md);
+}
+
+.price-card-value {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-700);
+}
+
+.price-card-currency {
+    font-size: 0.9rem;
+    color: var(--neutral-600);
+    margin-top: var(--space-xs);
+}

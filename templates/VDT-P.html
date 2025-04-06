@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Výsledky Vnitrodenního trhu s plynem ČR</title>
+    <!-- Header dependencies -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Keep base style.css if needed, comment out VDTP.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='VDTP.css') }}"> -->
+    <!-- Chart.js deferred -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" defer></script>
+    <!-- Tailwind config for header animation -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            animation: {
+              'gradient-x': 'gradient-x 15s ease infinite',
+            },
+            keyframes: {
+              'gradient-x': {
+                '0%, 100%': {
+                  'background-size': '200% 200%',
+                  'background-position': 'left center'
+                },
+                '50%': {
+                  'background-size': '200% 200%',
+                  'background-position': 'right center'
+                }
+              },
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Base styles needed for header */
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      /* Glassmorphism effects needed for header */
+      .glass-effect {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.1);
+      }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Include the universal header -->
+    {% include 'partials/header.html' %}
+
+    <!-- Market result title section with Tailwind -->
+    <section class="market-result bg-white py-6 text-center shadow-sm border-b border-gray-200">
+        <h1 id="market-result-title" class="text-2xl font-semibold text-blue-800">
+            Výsledky vnitrodenního trhu s plynem za posledních 30 dní ČR
+        </h1>
+    </section>
+
+    <!-- Main dashboard container with Tailwind -->
+    <main class="dashboard-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <!-- Chart dashboard section with Tailwind -->
+        <div class="dashboard bg-white rounded-2xl shadow-xl overflow-hidden p-4 sm:p-6">
+            <!-- Chart container -->
+            <div class="chart-container relative w-full h-[500px] sm:h-[600px]">
+                <canvas id="oteChart"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <!-- Date/Time update script -->
+    <script>
+      function updateDateTime() {
+        const now = new Date();
+        const options = {
+          day: '2-digit', month: '2-digit', year: 'numeric',
+          hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+        };
+        const dateTimeElement = document.getElementById('dateTime');
+        if (dateTimeElement) {
+            dateTimeElement.textContent = now.toLocaleString('cs-CZ', options);
+        }
+      }
+      let timeUpdateInterval;
+      document.addEventListener('DOMContentLoaded', () => {
+        updateDateTime();
+        timeUpdateInterval = setInterval(updateDateTime, 1000);
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) { clearInterval(timeUpdateInterval); }
+          else { updateDateTime(); timeUpdateInterval = setInterval(updateDateTime, 1000); }
+        });
+      });
+    </script>
+    <!-- Page specific JS -->
+    <script src="{{ url_for('static', filename='js/VDTPscript.js') }}" defer></script>
+</body>
+</html>

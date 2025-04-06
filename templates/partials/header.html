@@ -1,0 +1,12 @@
+<!-- templates/partials/header.html -->
+<header class="bg-gradient-to-r from-blue-800 via-blue-700 to-blue-900 animate-gradient-x text-white shadow-lg sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-20">
+    <div class="flex items-center space-x-4">
+      <!-- Use url_for for static assets -->
+      <img src="{{ url_for('static', filename='OTE.png') }}" alt="Logo OTE" class="h-16 hover:scale-105 transition-transform duration-300">
+      <div class="text-xl font-semibold hidden sm:block">Spojujeme trhy a příležitosti</div>
+    </div>
+    <!-- Ensure the element for date/time exists -->
+    <div class="text-xl font-medium glass-effect px-6 py-3 rounded-full" id="dateTime">{{ current_time }}</div>
+  </div>
+</header> 

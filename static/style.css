@@ -1,0 +1,1059 @@
+:root {
+  --danger-100: #fff5f5;
+  --danger-500: #e53e3e;
+  --neutral-100: #f7fafc;
+  --neutral-200: #edf2f7;
+  --neutral-300: #e2e8f0;
+  --neutral-400: #cbd5e0;
+  --neutral-500: #a0aec0;
+  --neutral-600: #718096;
+  --neutral-700: #4a5568;
+  --neutral-800: #2d3748;
+  --neutral-900: #1a202c;
+  --primary-100: #ebf8ff;
+  --primary-200: #bee3f8;
+  --primary-300: #90cdf4;
+  --primary-400: #63b3ed;
+  --primary-500: #3498db;
+  --primary-600: #0288d1;
+  --primary-700: #004C97;
+  --primary-800: #1e4784;
+  --primary-900: #1a365d;
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --space-2xl: 3rem;
+  --space-lg: 1.5rem;
+  --space-md: 1rem;
+  --space-sm: 0.5rem;
+  --space-xl: 2rem;
+  --space-xs: 0.25rem;
+  --success-100: #e6f6ef;
+  --success-500: #0ac074;
+  --warning-100: #fffbeb;
+  --warning-500: #f6ad55;
+}
+  
+body {
+  -webkit-font-smoothing: antialiased;
+  background: var(--neutral-100);
+  color: var(--neutral-800);
+  font-family: 'Roboto', system-ui, sans-serif;
+  line-height: 1.5;
+}
+
+/* Základní reset pro všechny elementy */
+*, ::before, ::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e5e7eb;
+}
+
+/* Začátek karet */
+.card {
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+  min-height: 180px !important;
+  padding: var(--space-xl) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+@media (prefers-color-scheme: dark) {
+}
+
+.card:hover {
+  background-color: var(--neutral-100);
+  background-color: var(--neutral-700);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-xl);
+  transform: scale(1.05);
+  transform: scale(1.1);
+  transform: translateY(-2px);
+  transform: translateY(-4px);
+  z-index: 1;
+}
+
+.card .commodity {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.125rem;
+  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
+  opacity: 0.95;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-transform: uppercase;
+}
+
+.card-title {
+  color: white;
+}
+
+.card p {
+  color: var(--neutral-400);
+  color: var(--neutral-600);
+  font-weight: normal;
+}
+
+.price-container, .amount-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.price, .amount {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-end;
+  min-width: 180px;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.price::before, .amount::before {
+  flex: 1;
+  text-align: right;
+  margin-right: 0.5rem;
+  width: 60px;
+}
+
+.price .value, .amount .value {
+  text-align: right;
+  min-width: 100px;
+}
+
+.price::after, .amount::after {
+  margin-left: 0.5rem;
+  width: 60px;
+  text-align: left;
+}
+
+.price.no-unit::after {
+  content: '';
+}
+
+.change {
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  border-radius: 8px;
+  display: inline-flex;
+  font-size: 0.875rem;
+  font-weight: 600;
+  gap: var(--space-xs);
+  letter-spacing: 0.01em;
+  margin-top: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.change.positive {
+  background: rgba(34, 197, 94, 0.2);
+  background: var(--success-100);
+  color: var(--success-500);
+}
+
+.change.negative {
+  background: rgba(239, 68, 68, 0.2);
+  background: var(--danger-100);
+  color: var(--danger-500);
+}
+
+.section-container {
+  background: white;
+  border-radius: 16px;
+  border-radius: 24px;
+  border: 1px solid var(--neutral-200);
+  box-shadow: var(--shadow-lg);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-md);
+  max-width: none;
+  overflow: hidden;
+  padding: var(--space-2xl);
+  padding: var(--space-xl);
+  width: 100%;
+}
+
+.section-header {
+  color: var(--neutral-900);
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-md);
+  position: relative;
+}
+
+.section-header::after {
+  background: linear-gradient(90deg, var(--primary-700), var(--primary-500));
+  border-radius: 2px;
+  bottom: 0;
+  content: '';
+  height: 3px;
+  height: 4px;
+  left: 0;
+  position: absolute;
+  width: 60px;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-lg);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+@media (min-width: 1440px) {
+}
+
+@keyframes fadeIn {
+}
+
+.status-indicator {
+  border-radius: 50%;
+  display: inline-block;
+  height: 8px;
+  margin-right: var(--space-sm);
+  width: 8px;
+}
+
+.status-active {
+  background: var(--success-500);
+  box-shadow: 0 0 0 4px var(--success-100);
+}
+
+.cards {
+  display: flex;
+  display: grid;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  gap: var(--space-md);
+  gap: var(--space-sm) !important;
+  gap: var(--space-sm);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  justify-content: center;
+  padding: var(--space-md);
+  padding: var(--space-sm);
+  padding: var(--space-xl);
+}
+
+.card.market-day {
+  background: linear-gradient(135deg, var(--primary-700), var(--primary-600));
+}
+
+.card.market-continuous {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+}
+
+.card.market-auction {
+  background: linear-gradient(135deg, #22c55e, #4ade80);
+}
+
+.card .price {
+  align-items: baseline;
+  color: white;
+  display: flex;
+  font-size: 2.25rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-weight: 800;
+  gap: var(--space-xs);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  line-height: 1.2;
+  margin: var(--space-xs) 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card .amount {
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-top: var(--space-xs);
+  opacity: 0.95;
+  opacity: 0.9;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card.gas-card {
+  background: linear-gradient(135deg, #FFB83F, #FFD391);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
+  color: var(--neutral-900);
+}
+
+.card.gas-card .commodity {
+  color: var(--neutral-900);
+  font-size: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+  text-transform: uppercase;
+}
+
+.card.gas-card .price {
+  color: var(--neutral-900);
+  font-size: 2.25rem;
+  font-size: 2.75rem;
+  font-weight: 800;
+  line-height: 1;
+  margin: var(--space-xs) 0;
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.2);
+  text-shadow: none;
+}
+
+.card.gas-card .price::after {
+  color: var(--neutral-700);
+  content: 'EUR/MWh';
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-left: var(--space-xs);
+}
+
+.card.gas-card .amount {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  color: var(--neutral-800);
+  color: var(--neutral-900);
+  font-size: 0.875rem;
+  font-size: 0.95rem;
+  font-size: 1rem;
+  font-weight: 500;
+  font-weight: 600;
+  margin-top: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.card.gas-card .change {
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 6px;
+  font-weight: 600;
+  margin-top: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.card.gas-card .change.positive {
+  background: #22c55e;
+  border: 1px solid #16a34a;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.5);
+  color: #ffffff;
+}
+
+.card.gas-card .change.negative {
+  background: #ef4444;
+  border: 1px solid #dc2626;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.5);
+  color: #ffffff;
+}
+
+.card.gas-card:hover {
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+}
+
+.cards:hover > .card:not(:hover) {
+  filter: blur(10px);
+  filter: none;
+  opacity: 0.7;
+  opacity: 1;
+  transform: none;
+  transform: scale(0.9);
+}
+
+.dashboard-section {
+  margin-bottom: var(--space-2xl);
+  margin-bottom: var(--space-md);
+}
+
+.section-title {
+  border-left: 4px solid var(--primary-600);
+  color: var(--neutral-800);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--space-lg);
+  padding-left: var(--space-md);
+}
+
+#gasResults .card {
+  min-height: 160px;
+  min-height: 180px;
+  width: 280px;
+  width: 280px;
+}
+
+@media (max-width: 1440px) {
+}
+
+.card, #gasResults .card {
+  min-width: 250px;
+  width: calc(25% - var(--space-md));
+}
+
+.card.electricity-card {
+  align-items: center;
+  background: linear-gradient(135deg, var(--primary-700), var(--primary-600));
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  text-align: center;
+}
+
+#gasResults .cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: center;
+}
+
+main {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: var(--space-md);
+}
+
+body > main {
+  margin: 0 auto;
+  max-width: 80vw !important;
+  padding: var(--space-md);
+}
+
+.dashboard-section .cards {
+  display: grid;
+  gap: var(--space-md);
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+  padding: var(--space-md);
+}
+
+.dashboard-section .card {
+  align-items: center;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  min-height: 180px;
+  min-width: 300px !important;
+  overflow: hidden;
+  padding: var(--space-xl);
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  width: auto !important;
+}
+
+.grid.grid-cols-1 {
+  gap: var(--space-md) !important;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)) !important;
+}
+
+.card.electricity-card .change {
+  border-radius: 6px;
+  color: white !important;
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: var(--space-sm);
+  margin: var(--space-xs) 0;
+  padding: var(--space-xs) var(--space-sm);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.card.electricity-card .price::after {
+  color: rgba(255, 255, 255, 0.9) !important;
+  color: white;
+  content: 'EUR/MWh';
+  font-size: 0.875rem;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-left: var(--space-xs);
+  opacity: 0.9;
+}
+
+#electricityResults, #gasResults {
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hidden {
+  display: none;
+  opacity: 0;
+}
+
+.commodity {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.amount {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: flex-start;
+  min-width: 150px;
+  text-align: right;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.amount .value-wrapper {
+  display: inline-block;
+  text-align: left;
+}
+
+.card.electricity-card .commodity {
+  color: white !important;
+  color: white;
+  font-size: 1.125rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.card.electricity-card .price {
+  color: white !important;
+  color: white;
+  font-size: 2.25rem;
+  font-size: 2.5rem;
+  font-weight: 700;
+  font-weight: 800;
+  margin: var(--space-xs) 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.card.electricity-card .amount {
+  color: white !important;
+  color: white;
+  font-size: 0.875rem;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: var(--space-sm);
+  opacity: 0.9;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.skeleton-loading {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+@keyframes skeleton-loading {
+}
+
+0% {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+100% {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.card .price::after {
+  content: 'EUR/MWh';
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-left: var(--space-xs);
+  opacity: 0.8;
+  opacity: 0.9;
+}
+
+.card .price.no-unit::after {
+  content: '';
+}
+
+.card .change {
+  align-self: center;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.header-right {
+  align-items: center;
+  display: flex;
+  gap: var(--space-md);
+}
+
+.toggle-button {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: var(--space-sm) var(--space-md);
+  transition: all 0.2s ease;
+}
+
+.toggle-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.card.electricity-card .price.no-unit::after {
+  content: '';
+}
+
+.card.electricity-card .change.positive {
+  background: #22c55e;
+  border: 1px solid #16a34a;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.5);
+  color: #ffffff;
+}
+
+.card.electricity-card .change.negative {
+  background: #ef4444;
+  border: 1px solid #dc2626;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.5);
+  color: #ffffff;
+}
+
+.dashboard-section .card.electricity-card {
+  background: linear-gradient(135deg, var(--primary-700), var(--primary-600));
+  box-shadow: 0 8px 24px rgba(0, 76, 151, 0.15);
+  color: white;
+}
+
+.dashboard-section .card.gas-card {
+  background: linear-gradient(135deg, #FFB83F, #FFD391);
+  box-shadow: 0 8px 24px rgba(255, 184, 63, 0.15);
+  color: var(--neutral-900);
+}
+
+.dashboard-section .card .commodity {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-sm);
+  text-align: center;
+  width: 100%;
+}
+
+.dashboard-section .card .price {
+  align-items: baseline;
+  display: flex;
+  font-size: 2.5rem;
+  font-weight: 800;
+  gap: var(--space-xs);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: var(--space-xs) 0;
+}
+
+.dashboard-section .card .price .unit {
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.dashboard-section .card .price.no-unit .unit {
+  content: '';
+}
+
+.dashboard-section .card .amount {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  margin-top: var(--space-sm);
+  opacity: 0.9;
+  text-align: center;
+}
+
+.dashboard-section .card .change {
+  align-items: center;
+  border-radius: 6px;
+  display: inline-flex;
+  font-size: 0.875rem;
+  font-weight: 600;
+  gap: var(--space-xs);
+  margin-top: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.dashboard-section .card.electricity-card .change.positive {
+  background: #22c55e;
+  border: 1px solid #16a34a;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.5);
+  color: #ffffff;
+}
+
+.dashboard-section .card.electricity-card .change.negative {
+  background: #ef4444;
+  border: 1px solid #dc2626;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.5);
+  color: #ffffff;
+}
+
+.dashboard-section .card.gas-card .change.positive {
+  background: #22c55e;
+  border: 1px solid #16a34a;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.5);
+  color: #ffffff;
+}
+
+.dashboard-section .card.gas-card .change.negative {
+  background: #ef4444;
+  border: 1px solid #dc2626;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.5);
+  color: #ffffff;
+}
+
+.dashboard-section .card:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+.card-body {
+  display: none;
+}
+
+.dashboard-section .card,
+.dashboard-section .card.electricity-card,
+.dashboard-section .card.gas-card {
+  background: #004C97 !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+  color: white !important;
+  min-height: 180px !important;
+  padding: var(--space-xl) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.dashboard-section .card .commodity,
+.dashboard-section .card.electricity-card .commodity,
+.dashboard-section .card.gas-card .commodity {
+  color: white;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: var(--space-sm);
+  text-align: center;
+  width: 100%;
+}
+
+.dashboard-section .card .price,
+.dashboard-section .card.electricity-card .price,
+.dashboard-section .card.gas-card .price {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin: var(--space-xs) 0;
+}
+
+.dashboard-section .card .price::after,
+.dashboard-section .card.electricity-card .price::after,
+.dashboard-section .card.gas-card .price::after {
+  color: white;
+  content: 'EUR/MWh';
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.dashboard-section .card .price.no-unit::after,
+.dashboard-section .card.electricity-card .price.no-unit::after,
+.dashboard-section .card.gas-card .price.no-unit::after {
+  content: '';
+}
+
+.dashboard-section .card .amount,
+.dashboard-section .card.electricity-card .amount,
+.dashboard-section .card.gas-card .amount {
+  color: white;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  margin-top: var(--space-sm);
+  opacity: 0.9;
+}
+
+.dashboard-section .card .change,
+.dashboard-section .card.electricity-card .change,
+.dashboard-section .card.gas-card .change {
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+}
+
+.dashboard-section .card .change.positive,
+.dashboard-section .card.electricity-card .change.positive,
+.dashboard-section .card.gas-card .change.positive {
+  background: #22c55e;
+  border: 1px solid #16a34a;
+  box-shadow: 0 2px 8px rgba(34, 197, 94, 0.5);
+  color: white;
+}
+
+.dashboard-section .card .change.negative,
+.dashboard-section .card.electricity-card .change.negative,
+.dashboard-section .card.gas-card .change.negative {
+  background: #ef4444;
+  border: 1px solid #dc2626;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.5);
+  color: white;
+}
+
+.card,
+.card.electricity-card,
+.dashboard-section .card.electricity-card {
+  background: #004C97 !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1) !important;
+  color: white !important;
+  min-height: 180px !important;
+  padding: var(--space-xl) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+.card.gas-card,
+.dashboard-section .card.gas-card {
+  background: linear-gradient(135deg, #FFB83F, #FFD391) !important;
+  color: var(--neutral-900) !important;
+}
+
+.card.gas-card .commodity,
+.card.gas-card .price,
+.card.gas-card .amount {
+  color: var(--neutral-900) !important;
+}
+
+.card.gas-card .price::after,
+.card.gas-card .amount::after {
+  color: var(--neutral-700) !important;
+}
+
+.card .commodity,
+.card.electricity-card .commodity,
+.card.gas-card .commodity {
+  color: white !important;
+  font-size: 1.125rem !important;
+  font-weight: 600 !important;
+  margin-bottom: var(--space-sm) !important;
+}
+
+.card .price,
+.card.electricity-card .price,
+.card.gas-card .price {
+  color: white !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+}
+
+.card .amount,
+.card.electricity-card .amount,
+.card.gas-card .amount {
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: center !important;
+  gap: var(--space-xs) !important;
+  color: white !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  margin: var(--space-xs) 0 !important;
+}
+
+.card .amount::before,
+.card.electricity-card .amount::before,
+.card.gas-card .amount::before {
+  content: "" !important;
+}
+
+.card .amount::after,
+.card.electricity-card .amount::after,
+.card.gas-card .amount::after {
+  content: "MWh" !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  opacity: 0.8 !important;
+  margin-left: var(--space-xs) !important;
+}
+
+.card.system-deviation {
+  background: #004C97 !important;
+  border: none !important;
+  color: white !important;
+}
+
+.card .price-range,
+.card.electricity-card .price-range,
+.card.gas-card .price-range {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--space-xs) !important;
+  margin: var(--space-sm) 0 !important;
+  width: 100% !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.card .price-range span,
+.card.electricity-card .price-range span,
+.card.gas-card .price-range span {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: var(--space-xs) !important;
+  font-size: 0.875rem !important;
+  color: white !important;
+  justify-content: center !important;
+}
+
+.card .price-range .range-label,
+.card.electricity-card .price-range .range-label,
+.card.gas-card .price-range .range-label {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.875rem !important;
+}
+
+.card .price-range .range-value,
+.card.electricity-card .price-range .range-value,
+.card.gas-card .price-range .range-value {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: white !important;
+}
+
+.card .price-range .range-unit,
+.card.electricity-card .price-range .range-unit,
+.card.gas-card .price-range .range-unit {
+  color: rgba(255, 255, 255, 0.8) !important;
+  font-size: 0.875rem !important;
+}
+
+.card .price.no-prefix::before,
+.card.electricity-card .price.no-prefix::before,
+.card.gas-card .price.no-prefix::before {
+  content: "" !important;
+  display: none !important;
+}
+
+.card .amount.no-prefix,
+.card.electricity-card .amount.no-prefix,
+.card.gas-card .amount.no-prefix {
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: center !important;
+  gap: var(--space-xs) !important;
+  color: white !important;
+}
+
+.card .amount.no-prefix .value,
+.card.electricity-card .amount.no-prefix .value,
+.card.gas-card .amount.no-prefix .value {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: white !important;
+}
+
+.card .amount.no-prefix .unit,
+.card.electricity-card .amount.no-prefix .unit,
+.card.gas-card .amount.no-prefix .unit {
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  opacity: 0.8 !important;
+  margin-left: var(--space-xs) !important;
+  color: white !important;
+}
+
+.card .amount.no-prefix::before,
+.card.electricity-card .amount.no-prefix::before,
+.card.gas-card .amount.no-prefix::before,
+.card .amount.no-prefix::after,
+.card.electricity-card .amount.no-prefix::after,
+.card.gas-card .amount.no-prefix::after {
+  content: "" !important;
+  display: none !important;
+}
+
+.card .amount::before,
+.card.electricity-card .amount::before,
+.card.gas-card .amount::before {
+  content: "" !important;
+}
+
+.card .commodity:is([title="BASE LOAD"], [title="PEAK LOAD"], [title="OFFPEAK LOAD"], 
+                   [title="BASE LOAD IDA 1"], [title="BASE LOAD IDA 2"], [title="BASE LOAD IDA 3"]) 
+                   ~ .amount::before {
+  content: "Množství: " !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  opacity: 0.8 !important;
+  margin-right: 0.25rem !important;
+}
+
+#electricityResults .card {
+  background: #004C97 !important;
+  color: white !important;
+}
+
+#electricityResults .card .commodity,
+#electricityResults .card .price,
+#electricityResults .card .amount {
+  color: white !important;
+}
+
+#electricityResults .card .price::after,
+#electricityResults .card .amount::after {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+#gasResults .card {
+  background: linear-gradient(135deg, #FFB83F, #FFD391) !important;
+  color: var(--neutral-900) !important;
+}
+
+#gasResults .card .commodity,
+#gasResults .card .price,
+#gasResults .card .amount {
+  color: var(--neutral-900) !important;
+}
+
+#gasResults .card .price::after,
+#gasResults .card .amount::after {
+  color: var(--neutral-700) !important;
+}
+
+#gasResults .card .amount,
+#gasResults .card .price {
+  background: none !important;
+}
+  

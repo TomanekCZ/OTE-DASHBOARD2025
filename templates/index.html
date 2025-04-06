@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OTE Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          animation: {
+            'gradient-x': 'gradient-x 15s ease infinite',
+            'gradient-y': 'gradient-y 15s ease infinite',
+            'gradient-xy': 'gradient-xy 15s ease infinite',
+          },
+          keyframes: {
+            'gradient-y': {
+              '0%, 100%': {
+                'background-size': '400% 400%',
+                'background-position': 'center top'
+              },
+              '50%': {
+                'background-size': '200% 200%',
+                'background-position': 'center center'
+              }
+            },
+            'gradient-x': {
+              '0%, 100%': {
+                'background-size': '200% 200%',
+                'background-position': 'left center'
+              },
+              '50%': {
+                'background-size': '200% 200%',
+                'background-position': 'right center'
+              }
+            },
+            'gradient-xy': {
+              '0%, 100%': {
+                'background-size': '400% 400%',
+                'background-position': 'left center'
+              },
+              '50%': {
+                'background-size': '200% 200%',
+                'background-position': 'right center'
+              }
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Base styles */
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* Transitions */
+    .transition-all {
+      transition-property: all;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      transition-duration: 300ms;
+    }
+
+    /* Toggle functionality */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Smooth transitions for sections */
+    #electricityResults,
+    #gasResults {
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    /* Card animations */
+    .card-gradient {
+      background-size: 200% 200%;
+      animation: gradientAnimation 15s ease infinite;
+    }
+
+    @keyframes gradientAnimation {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Glassmorphism effects */
+    .glass-effect {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Hover animations */
+    .hover-lift {
+      transition: transform 0.2s ease;
+    }
+    .hover-lift:hover {
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-gray-50 to-gray-100">
+  <!-- Include the universal header -->
+  {% include 'partials/header.html' %}
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <!-- Info Grid with Enhanced Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+      <!-- About Company Card -->
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift">
+        <div class="p-4">
+          <h2 class="text-lg font-bold text-gray-800 mb-3 pb-2 border-b border-gray-200 flex items-center">
+            <i class="fas fa-building text-blue-600 mr-2"></i>
+            O společnosti
+          </h2>
+          <p class="text-gray-600 text-xs mb-4 leading-relaxed">
+            OTE, a.s., založena 18. 4. 2001, je klíčovým hráčem na trhu s
+            elektřinou a plynem v České republice. Jako akciová společnost ve
+            vlastnictví státu zajišťuje důležité funkce pro hladké fungování
+            energetického trhu.
+          </p>
+          <ul class="space-y-2">
+            <li class="flex items-start space-x-2 group">
+              <div class="flex-shrink-0 w-7 h-7 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold transition-colors duration-200 group-hover:bg-blue-600 group-hover:text-white">2002</div>
+              <div class="pt-0.5 text-xs text-gray-700">Aktivní na trhu s elektřinou</div>
+            </li>
+            <li class="flex items-start space-x-2 group">
+              <div class="flex-shrink-0 w-7 h-7 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold transition-colors duration-200 group-hover:bg-blue-600 group-hover:text-white">2004</div>
+              <div class="pt-0.5 text-xs text-gray-700">Správa národního registru emisních povolenek</div>
+            </li>
+            <li class="flex items-start space-x-2 group">
+              <div class="flex-shrink-0 w-7 h-7 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold transition-colors duration-200 group-hover:bg-blue-600 group-hover:text-white">2010</div>
+              <div class="pt-0.5 text-xs text-gray-700">Aktivní na trhu s plynem</div>
+            </li>
+            <li class="flex items-start space-x-2 group">
+              <div class="flex-shrink-0 w-7 h-7 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold transition-colors duration-200 group-hover:bg-blue-600 group-hover:text-white">2013</div>
+              <div class="pt-0.5 text-xs text-gray-700">Správa záruk původu pro obnovitelné zdroje energie</div>
+            </li>
+            <li class="flex items-start space-x-2 group">
+              <div class="flex-shrink-0 w-7 h-7 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] font-bold transition-colors duration-200 group-hover:bg-blue-600 group-hover:text-white">2023</div>
+              <div class="pt-0.5 text-xs text-gray-700">Základní kapitál společnosti zvýšen na 1 miliardu Kč</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Key Activities Card -->
+      <div class="bg-white rounded-xl shadow-lg overflow-hidden hover-lift">
+        <div class="p-4">
+          <h2 class="text-lg font-bold text-gray-800 mb-3 pb-2 border-b border-gray-200 flex items-center">
+            <i class="fas fa-tasks text-blue-600 mr-2"></i>
+            Klíčové činnosti
+          </h2>
+          <ul class="space-y-1.5">
+            <li class="flex items-center space-x-2 p-1.5 rounded-md hover:bg-gray-50 transition-colors duration-200">
+              <div class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                <i class="fas fa-check text-xs"></i>
+              </div>
+              <div class="text-xs text-gray-700 font-medium">Zúčtování a vypořádání odchylek</div>
+            </li>
+            <li class="flex items-center space-x-2 p-1.5 rounded-md hover:bg-gray-50 transition-colors duration-200">
+              <div class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                <i class="fas fa-check text-xs"></i>
+              </div>
+              <div class="text-xs text-gray-700 font-medium">Organizace krátkodobého trhu s elektřinou a plynem</div>
+            </li>
+            <li class="flex items-center space-x-2 p-1.5 rounded-md hover:bg-gray-50 transition-colors duration-200">
+              <div class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                <i class="fas fa-check text-xs"></i>
+              </div>
+              <div class="text-xs text-gray-700 font-medium">Správa centra datových a informačních služeb</div>
+            </li>
+            <li class="flex items-center space-x-2 p-1.5 rounded-md hover:bg-gray-50 transition-colors duration-200">
+              <div class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                <i class="fas fa-check text-xs"></i>
+              </div>
+              <div class="text-xs text-gray-700 font-medium">Administrace podpory obnovitelných zdrojů energie</div>
+            </li>
+            <li class="flex items-center space-x-2 p-1.5 rounded-md hover:bg-gray-50 transition-colors duration-200">
+              <div class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                <i class="fas fa-check text-xs"></i>
+              </div>
+              <div class="text-xs text-gray-700 font-medium">Správa národního registru emisních povolenek a obchodování s povolenkami</div>
+            </li>
+            <li class="flex items-center space-x-2 p-1.5 rounded-md hover:bg-gray-50 transition-colors duration-200">
+              <div class="flex-shrink-0 w-5 h-5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center">
+                <i class="fas fa-check text-xs"></i>
+              </div>
+              <div class="text-xs text-gray-700 font-medium">Vydávání záruk původu pro elektrickou energii</div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results Section Wrapper -->
+    <div class="space-y-12">
+      <!-- Toggle Button moved here -->
+      <div class="flex">
+        <button id="toggleButton" class="group relative overflow-hidden rounded-full bg-gradient-to-r from-blue-600 to-blue-800 px-6 py-3 text-white shadow-lg transition-all duration-300 hover:shadow-blue-500/25 hover:shadow-xl ml-0">
+          <span class="relative z-10 flex items-center space-x-2">
+            <i class="fas fa-exchange-alt"></i>
+            <span class="text-sm font-medium">Přepnout na plyn</span>
+          </span>
+          <div class="absolute inset-0 z-0 bg-gradient-to-r from-blue-700 to-blue-900 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+        </button>
+      </div>
+
+      <!-- Electricity Results Section -->
+      <div id="electricityResults" class="bg-white rounded-2xl shadow-lg overflow-hidden">
+        <div class="px-6 pt-6">
+          <div class="flex flex-col sm:flex-row justify-between sm:items-center pb-4 mb-6 border-b border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-3">
+                <i class="fas fa-bolt text-blue-600 text-lg"></i>
+              </div>
+              <h2 class="text-xl font-bold text-gray-800">Aktuální výsledky trhu s elektřinou</h2>
+            </div>
+            <div class="text-xs text-gray-500 mt-2 sm:mt-0 flex items-center">
+              <i class="fas fa-clock mr-1"></i>
+              <span class="font-medium">Poslední aktualizace:</span>
+              <span id="lastUpdateTime" class="font-semibold ml-1"></span>
+            </div>
+          </div>
+
+          {% set unique_tabs = ote_data | map(attribute='tab') | unique | sort %}
+          {% set ordered_tabs = [] %}
+          {% if 'Denní trh' in unique_tabs %} {% set _ = ordered_tabs.append('Denní trh') %} {% endif %}
+          {% if 'Vnitrodenní trh kontinuální' in unique_tabs %} {% set _ = ordered_tabs.append('Vnitrodenní trh kontinuální') %} {% endif %}
+          {% if 'Výsledky vnitrodenních aukcí' in unique_tabs %} {% set _ = ordered_tabs.append('Výsledky vnitrodenních aukcí') %} {% endif %}
+          {% if 'Zúčtování odchylek' in unique_tabs %} {% set _ = ordered_tabs.append('Zúčtování odchylek') %} {% endif %}
+          {% for tab in unique_tabs %}
+            {% if tab not in ordered_tabs %}
+              {% set _ = ordered_tabs.append(tab) %}
+            {% endif %}
+          {% endfor %}
+
+          {% for unique_tab in ordered_tabs %}
+          <div class="mb-10 last:mb-0">
+            {% set section_data = ote_data | selectattr("tab", "equalto", unique_tab) | list %}
+            {% if section_data %}
+              {% if 'Denní trh' in unique_tab and section_data[0].date %}
+                <h3 class="text-lg font-semibold text-gray-800 mb-5 flex items-center">
+                  <span class="w-2 h-6 bg-blue-600 rounded-full mr-2"></span>
+                  {{ unique_tab }} - {{ section_data[0].date }}
+                </h3>
+              {% else %}
+                <h3 class="text-lg font-semibold text-gray-800 mb-5 flex items-center">
+                  <span class="w-2 h-6 bg-blue-600 rounded-full mr-2"></span>
+                  {{ unique_tab }}
+                </h3>
+              {% endif %}
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {% for item in section_data | sort(attribute='commodity') %}
+                <div class="relative overflow-hidden rounded-xl shadow-md hover-lift">
+                  <!-- Animated gradient background -->
+                  <div class="absolute inset-0 card-gradient bg-gradient-to-br from-blue-600 via-blue-700 to-blue-900 opacity-90"></div>
+                  
+                  <!-- Content with glass effect -->
+                  <div class="relative z-10 p-5 text-white h-full flex flex-col min-h-[170px]">
+                    <div class="text-xs font-semibold uppercase tracking-wide pb-2 mb-3 border-b border-white/30 truncate" title="{{ item.commodity }}">{{ item.commodity }}</div>
+                    <div class="flex-grow flex flex-col justify-center">
+                      {% if item.commodity == 'MNOŽSTVÍ ZA MĚSÍC' or (not item.price and not item.min and not item.max and item.amount) %}
+                        <div class="text-center">
+                          <div class="text-3xl font-bold">{{ item.amount }}</div>
+                          <div class="text-sm text-white/70 mt-1">MWh</div>
+                        </div>
+                      {% else %}
+                        {% if item.price %}
+                          <div class="mb-3">
+                            <span class="text-xs text-white/70">Cena</span>
+                            <div class="text-2xl font-bold">{{ item.price }}</div>
+                            <span class="text-xs text-white/70">CZK/MWh</span>
+                          </div>
+                        {% endif %}
+
+                        {% if item.min and item.max %}
+                          <div class="space-y-1 mb-3">
+                            <div>
+                              <span class="text-xs text-white/70">Min:</span>
+                              <span class="text-lg font-semibold ml-1">{{ item.min }}</span>
+                              <span class="text-xs text-white/70">CZK/MWh</span>
+                            </div>
+                            <div>
+                              <span class="text-xs text-white/70">Max:</span>
+                              <span class="text-lg font-semibold ml-1">{{ item.max }}</span>
+                              <span class="text-xs text-white/70">CZK/MWh</span>
+                            </div>
+                          </div>
+                        {% endif %}
+
+                        {% if item.amount %}
+                          <div>
+                            <span class="text-xs text-white/70">Množství</span>
+                            <div class="text-lg font-semibold">{{ item.amount }} MWh</div>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                    </div>
+
+                    {% if item.change %}
+                      <div class="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold {% if '-' in item.change %}bg-red-500/75 text-white{% else %}bg-green-500/75 text-white{% endif %} backdrop-blur-sm">
+                        {% if '-' in item.change %}
+                          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                          </svg>
+                        {% else %}
+                          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                          </svg>
+                        {% endif %}
+                        <span>{{ item.change }}</span>
+                        {% if '-' not in item.change %}
+                          <span class="sr-only">nárůst</span>
+                        {% else %}
+                          <span class="sr-only">pokles</span>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Gas Results Section -->
+      <div id="gasResults" class="bg-white rounded-2xl shadow-lg overflow-hidden hidden">
+        <div class="px-6 pt-6">
+          <div class="flex flex-col sm:flex-row justify-between sm:items-center pb-4 mb-6 border-b border-gray-200">
+            <div class="flex items-center">
+              <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-3">
+                <i class="fas fa-fire text-yellow-600 text-lg"></i>
+              </div>
+              <h2 class="text-xl font-bold text-gray-800">Aktuální výsledky trhu s plynem</h2>
+            </div>
+            <div class="text-xs text-gray-500 mt-2 sm:mt-0 flex items-center">
+              <i class="fas fa-clock mr-1"></i>
+              <span class="font-medium">Poslední aktualizace:</span>
+              <span id="lastUpdateTimeGas" class="font-semibold ml-1"></span>
+            </div>
+          </div>
+
+          {% set unique_tabs = ote_gas_data | map(attribute='tab') | unique | sort %}
+          {% set ordered_tabs = [] %}
+          {% if 'Vnitrodenní trh' in unique_tabs %} {% set _ = ordered_tabs.append('Vnitrodenní trh') %} {% endif %}
+          {% if 'Systémová odchylka' in unique_tabs %} {% set _ = ordered_tabs.append('Systémová odchylka') %} {% endif %}
+          {% for tab in unique_tabs %}
+            {% if tab not in ordered_tabs %}
+              {% set _ = ordered_tabs.append(tab) %}
+            {% endif %}
+          {% endfor %}
+
+          {% for tab in ordered_tabs %}
+            {% set section_data = ote_gas_data | selectattr("tab", "equalto", tab) | list %}
+            {% if section_data %}
+            <div class="mb-10 last:mb-0">
+              <h3 class="text-lg font-semibold text-gray-800 mb-5 flex items-center">
+                <span class="w-2 h-6 bg-yellow-500 rounded-full mr-2"></span>
+                {{ tab }}
+              </h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {% for item in section_data | sort(attribute='commodity') %}
+                <div class="relative overflow-hidden rounded-xl shadow-md hover-lift">
+                  <!-- Animated gradient background -->
+                  <div class="absolute inset-0 card-gradient bg-gradient-to-br from-yellow-500 via-yellow-600 to-amber-700 opacity-90"></div>
+                  
+                  <!-- Content with glass effect -->
+                  <div class="relative z-10 p-5 text-white h-full flex flex-col min-h-[170px]">
+                    <div class="text-xs font-semibold uppercase tracking-wide pb-2 mb-3 border-b border-white/30 truncate" title="{{ item.commodity }}">{{ item.commodity }}</div>
+                    <div class="flex-grow flex flex-col justify-center">
+                      {% if item.commodity == 'MNOŽSTVÍ ZA MĚSÍC' or (not item.price and not item.min and not item.max and item.amount) %}
+                        <div class="text-center">
+                          <div class="text-3xl font-bold">{{ item.amount }}</div>
+                          <div class="text-sm text-white/70 mt-1">MWh</div>
+                        </div>
+                      {% else %}
+                        {% if item.price %}
+                          <div class="mb-3">
+                            <span class="text-xs text-white/70">Cena</span>
+                            <div class="text-2xl font-bold">{{ item.price }}</div>
+                            <span class="text-xs text-white/70">CZK/MWh</span>
+                          </div>
+                        {% endif %}
+
+                        {% if item.min and item.max %}
+                          <div class="space-y-1 mb-3">
+                            <div>
+                              <span class="text-xs text-white/70">Min:</span>
+                              <span class="text-lg font-semibold ml-1">{{ item.min }}</span>
+                              <span class="text-xs text-white/70">CZK/MWh</span>
+                            </div>
+                            <div>
+                              <span class="text-xs text-white/70">Max:</span>
+                              <span class="text-lg font-semibold ml-1">{{ item.max }}</span>
+                              <span class="text-xs text-white/70">CZK/MWh</span>
+                            </div>
+                          </div>
+                        {% endif %}
+
+                        {% if item.amount %}
+                          <div>
+                            <span class="text-xs text-white/70">Množství</span>
+                            <div class="text-lg font-semibold">{{ item.amount }} MWh</div>
+                          </div>
+                        {% endif %}
+                      {% endif %}
+                    </div>
+
+                    {% if item.change %}
+                      <div class="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold {% if '-' in item.change %}bg-red-500/75 text-white{% else %}bg-green-500/75 text-white{% endif %} backdrop-blur-sm">
+                        {% if '-' in item.change %}
+                          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                          </svg>
+                        {% else %}
+                          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                          </svg>
+                        {% endif %}
+                        <span>{{ item.change }}</span>
+                        {% if '-' not in item.change %}
+                          <span class="sr-only">nárůst</span>
+                        {% else %}
+                          <span class="sr-only">pokles</span>
+                        {% endif %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Enhanced JavaScript for smoother animations and transitions
+    function updateDateTime() {
+      const now = new Date();
+      const options = {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      };
+      const dateTimeElement = document.getElementById('dateTime');
+      if (dateTimeElement) { // Check if element exists
+          dateTimeElement.textContent = now.toLocaleString('cs-CZ', options);
+      }
+    }
+
+    // Optimized interval for time updates
+    let timeUpdateInterval;
+    document.addEventListener('DOMContentLoaded', () => {
+      updateDateTime(); // Initial call
+      timeUpdateInterval = setInterval(updateDateTime, 1000);
+
+      // Stop interval when page is not visible
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+          clearInterval(timeUpdateInterval);
+        } else {
+          updateDateTime();
+          timeUpdateInterval = setInterval(updateDateTime, 1000);
+        }
+      });
+
+      // Enhanced toggle view functionality
+      const electricityResults = document.getElementById('electricityResults');
+      const gasResults = document.getElementById('gasResults');
+      const toggleButton = document.getElementById('toggleButton');
+      const buttonText = toggleButton?.querySelector('span > span'); // Optional chaining
+
+      let currentView = 'electricity';
+
+      function toggleView() {
+        if (!electricityResults || !gasResults || !buttonText) return; // Guard clause
+
+        const isElectricity = currentView === 'electricity';
+
+        // Fade out current view
+        const currentElement = isElectricity ? electricityResults : gasResults;
+        const targetElement = isElectricity ? gasResults : electricityResults;
+
+        currentElement.style.opacity = '0';
+        setTimeout(() => {
+          currentElement.classList.add('hidden');
+          targetElement.classList.remove('hidden');
+          // Trigger reflow
+          void targetElement.offsetWidth;
+          targetElement.style.opacity = '1';
+        }, 300);
+
+        // Update button text
+        buttonText.textContent = isElectricity ? 'Přepnout na elektřinu' : 'Přepnout na plyn';
+        currentView = isElectricity ? 'gas' : 'electricity';
+      }
+
+      if (toggleButton) {
+        toggleButton.addEventListener('click', toggleView);
+      }
+
+      // Update last update time display
+      updateLastUpdateTime();
+    });
+
+    function updateLastUpdateTime() {
+      const now = new Date();
+      const timeString = now.toLocaleTimeString('cs-CZ', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+      });
+
+      const lastUpdateElement = document.getElementById('lastUpdateTime');
+      if (lastUpdateElement) { // Check if element exists
+        lastUpdateElement.textContent = timeString;
+      }
+      const lastUpdateGasElement = document.getElementById('lastUpdateTimeGas');
+      if (lastUpdateGasElement) { // Check if element exists
+        lastUpdateGasElement.textContent = timeString;
+      }
+    }
+  </script>
+</body>
+
+</html>

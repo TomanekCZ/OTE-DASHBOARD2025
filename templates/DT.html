@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Výsledky denního trhu ČR</title>
+    <!-- Header dependencies (consistent with VDT-P) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Base style.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Removed DTstyle.css -->
+    <!-- Chart.js deferred -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" defer></script>
+    <!-- Tailwind config (consistent with VDT-P) -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: { // Added OTE colors for potential use
+              'ote-blue': '#004C97',
+              'ote-lightblue': '#E6F0F7',
+            },
+            animation: {
+              'gradient-x': 'gradient-x 15s ease infinite',
+            },
+            keyframes: {
+              'gradient-x': {
+                '0%, 100%': {
+                  'background-size': '200% 200%',
+                  'background-position': 'left center'
+                },
+                '50%': {
+                  'background-size': '200% 200%',
+                  'background-position': 'right center'
+                }
+              },
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      /* Base styles needed for header (consistent with VDT-P) */
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      /* Glassmorphism effects needed for header (consistent with VDT-P) */
+      .glass-effect {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.1);
+      }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+    <!-- Include the universal header -->
+    {% include 'partials/header.html' %}
+
+    <!-- Market result title section (Style like VDT-P) -->
+    <section class="bg-white py-6 text-center shadow-sm border-b border-gray-200">
+        <h1 id="market-result-title" class="text-2xl font-semibold text-blue-800"> 
+            Výsledky denního trhu ČR - <span id="market-date" class="font-bold">Načítání...</span>
+        </h1>
+    </section>
+
+    <!-- Main content container (Layout like VDT-P) -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <!-- Price cards section (Specific to DT, styled simply with Tailwind) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <!-- Base Load Card -->
+            <div class="bg-white rounded-lg shadow p-5 text-center border border-gray-100">
+                <div class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">BASE LOAD</div>
+                <div class="text-3xl font-bold text-blue-800 mb-1" id="base-load">---</div>
+                <div class="text-xs text-gray-400">EUR/MWh</div>
+            </div>
+            <!-- Peak Load Card -->
+            <div class="bg-white rounded-lg shadow p-5 text-center border border-gray-100">
+                <div class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">PEAK LOAD</div>
+                <div class="text-3xl font-bold text-blue-800 mb-1" id="peak-load">---</div>
+                <div class="text-xs text-gray-400">EUR/MWh</div>
+            </div>
+            <!-- Offpeak Load Card -->
+            <div class="bg-white rounded-lg shadow p-5 text-center border border-gray-100">
+                <div class="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">OFFPEAK LOAD</div>
+                <div class="text-3xl font-bold text-blue-800 mb-1" id="offpeak-load">---</div>
+                <div class="text-xs text-gray-400">EUR/MWh</div>
+            </div>
+        </div>
+
+        <!-- Chart dashboard section (Style like VDT-P) -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden p-4 sm:p-6">
+             <h2 class="text-lg font-semibold text-blue-800 mb-4 text-center sm:text-left">Hodinové ceny</h2>
+            <!-- Chart container (Style like VDT-P) -->
+            <div class="relative w-full h-[500px] sm:h-[600px]">
+                <canvas id="oteChart"></canvas>
+            </div>
+        </div>
+    </main>
+
+    <!-- Date/Time update script (Keep as is) -->
+    <script>
+      function updateDateTime() {
+        const now = new Date();
+        const options = {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        };
+        // Assuming the dateTime element is in header.html
+        const dateTimeElement = document.getElementById('dateTime');
+        if (dateTimeElement) {
+            dateTimeElement.textContent = now.toLocaleString('cs-CZ', options);
+        }
+      }
+
+      let timeUpdateInterval;
+      document.addEventListener('DOMContentLoaded', () => {
+        updateDateTime(); // Update time on load
+        timeUpdateInterval = setInterval(updateDateTime, 1000); // Start interval
+
+        // Handle visibility change for time update interval
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) {
+            clearInterval(timeUpdateInterval);
+          } else {
+            updateDateTime();
+            timeUpdateInterval = setInterval(updateDateTime, 1000);
+          }
+        });
+      });
+    </script>
+
+    <!-- Page specific JS (Keep DTscript.js) -->
+    <script src="{{ url_for('static', filename='js/DTscript.js') }}" defer></script>
+
+</body>
+</html>

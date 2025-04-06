@@ -1,0 +1,120 @@
+body {
+    font-family: 'Roboto', sans-serif; /* Use Roboto font as specified */
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* White background */
+    color: #333; /* Base text color for better contrast */
+}
+
+.header-container {
+    width: 100%; /* Full width for header */
+    background-color: #004C97; /* OTE dark blue color */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    max-width: 1200px;
+    margin: 0 auto; /* Center content within the header */
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header img {
+    height: 100px;
+    width: auto;
+}
+
+.header .divider {
+    width: 1px; /* Width of the dividing line */
+    height: 50px; /* Height of the dividing line */
+    background-color: #ffffff; /* Color of the line */
+    margin: 0 10px; /* Reduced space around the line */
+    margin-left: -55px;
+}
+
+.header .text {
+    font-size: 18px;
+    color: #ffffff; /* White text color for the slogan */
+    margin-left: 0; /* Reduced left margin */
+}
+
+.date-time {
+    font-size: 34px;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #0288d1;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    justify-content: center;
+    min-width: 200px;
+}
+
+.market-result {
+    text-align: center;
+    padding: 20px;
+    background-color: #f0f4f8;
+}
+
+.market-result h1 {
+    color: #004C97; /* OTE dark blue color */
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.dashboard-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    padding: 20px;
+    flex-direction: column;
+    background-color: #ffffff; /* White background for a modern look */
+}
+
+.dashboard {
+    max-width: 1200px;
+    width: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.chart-container {
+    width: 90%; /* Set width to 90% for better alignment */
+    height: 600px; /* Keep the height consistent */
+    margin-bottom: 30px;
+    background: linear-gradient(to bottom, #ffffff, #f0f4f8); /* Subtle gradient effect for the background */
+    border-radius: 15px; /* Rounded corners for a modern look */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for better contrast */
+    margin: 0 auto; /* Center the container horizontally */
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 0 10px;
+}
+
+.legend-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}

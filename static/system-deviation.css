@@ -1,0 +1,7 @@
+.card.system-deviation .price::after {
+    content: none !important;
+}
+
+.card.system-deviation .price {
+    position: relative;
+}
