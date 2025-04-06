@@ -4,12 +4,17 @@ from flask import Flask, render_template, url_for, jsonify
 from flask_caching import Cache
 import time
 import logging
+import os
+from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__, 
+           static_folder='static',
+           template_folder='templates')
+CORS(app)  # Enable CORS for all routes
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 # Nastavení loggeru na začátku souboru
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO if not os.getenv('DEBUG') else logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 # Funkce pro získání dat ze stránky OTE
@@ -422,4 +427,5 @@ def gas_data():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Development only
+    app.run(debug=os.getenv('DEBUG', 'False').lower() == 'true')
